@@ -1,0 +1,35 @@
+.container {
+    position: relative;
+    display: grid;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+#wrapper {
+    position: absolute;
+    display: grid;
+    grid-template-columns: 100vw;
+    grid-template-rows: 10vw 80vw 10vw;
+    width: 100vw;
+    height: 100vh;
+    border-bottom: 2px solid #e3dfdf;
+    box-sizing: border-box;
+}
+
+#menu-vertical {
+    grid-row: 1;
+    grid-template-columns: repeat(4, 25vw);
+    grid-template-rows: 100%;
+}
+
+#content {
+    grid-row: 2;
+    grid-template-rows: 100%;
+    grid-template-columns: 100%;
+}
+
+#footer {
+    grid-row: 3;
+    grid-template-columns: repeat(4, 25vw);
+    grid-template-rows: 100%;
+}
