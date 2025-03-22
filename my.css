@@ -1,8 +1,24 @@
-.container {
+.grid-container {
     position: relative;
     display: grid;
     overflow: hidden;
-    box-sizing: border-box;
+    box-sizing: inherit;
+}
+
+.block-container {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    box-sizing: inherit;
+}
+
+.nav-button {
+    position: relative;
+    display: inline-block;
+}
+
+.nav-button:hover {
+    background-color: aqua!important;
 }
 
 #wrapper {
@@ -22,15 +38,13 @@
     grid-template-rows: 100%;
 }
 
-#content {
+#section {
     grid-row: 2;
     grid-template-rows: 100%;
-    grid-template-columns: 100%;
+    grid-template-columns: auto;
 }
 
 #footer {
-    grid-row: 3;
-    grid-template-columns: repeat(4, 25vw);
-    grid-template-rows: 100%;
-    padding: 10%
+    width: 100%;
+    height: 100%;
 }
