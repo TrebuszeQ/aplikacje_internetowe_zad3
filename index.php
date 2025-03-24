@@ -96,7 +96,30 @@
                 return "<navbar id=\"menu-vertical\" class=\"grid-container w3-indigo\">$content</navbar>";
             }
 
-            function get_section($content) {
+            function get_section($target) {
+                
+                return "<section id=\"section\" class=\"grid-container\">$content</section>";
+            }
+
+            function get_home_section() {
+                $user_details = [
+                    "name" => "Hubert",
+                    "surname" => "Dabrowski",
+                    "country" => "Poland",
+                    "city" => "Lodz"
+                ];
+                $keys = array_keys($user_details);
+                $content = "<navbar id=\"info-navbar\" class=\"pseudo-navbar\">";
+
+                foreach(array_keys($map) as $key) {
+                    $value = $user_details[$key];
+                    $button = "<button type=\"button\" id=\"$key-button\" class=\"section_button\" value=\"$value\">";
+                    $content .= $button;
+                };
+                
+                $content .= "/navbar>";
+                $user_info_navbar = "<div id=\"info-navbar\" class=\"pseudo-navbar\">$content</div>";
+                
                 return "<section id=\"section\" class=\"grid-container\">$content</section>";
             }
 
