@@ -20,6 +20,15 @@
     background-color: rgb(142, 255, 255)!important;
 }
 
+.section-button {
+    position: relative;
+    display: inline-block;
+}
+
+.nav-button:hover {
+    background-color: rgb(33, 59, 59)!important;
+}
+
 #wrapper {
     position: absolute;
     display: grid;
@@ -31,10 +40,16 @@
     box-sizing: border-box;
 }
 
-#menu-vertical {
+#main-navbar {
     grid-row: 1;
     grid-template-columns: repeat(4, 25vw);
     grid-template-rows: 100%;
+}
+
+#section-navbar {
+    grid-row: 1;
+    grid-template-columns: repeat(4, 25vw);
+    grid-template-rows: 10vh;
 }
 
 #section {

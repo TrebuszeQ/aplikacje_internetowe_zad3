@@ -27,19 +27,23 @@
             $routes = [
                 [
                     "name" => "home",
-                    "url" => "home"
+                    "url" => "home",
+                    "content" => ""
                 ],
                 [
                     "name" => "users",
                     "url" => "users"
+                    "content" => ""
                 ],
                 [
                     "name" => "gallery",
                     "url" => "gallery"
+                    "content" => ""
                 ],
                 [
                     "name" => "placeholder",
                     "url" => "home"
+                    "contnet" => ""
                 ]
             ];
             // stdout("Routes: " . json_encode($routes));
@@ -73,7 +77,9 @@
                     default:
                         stdout("Routing to default target");
                         $url = $routes[0]['url'];
-                        $section = get_section("home");
+                        $section_content = get_home_navbar();
+                        $section_content .= get_home_content();
+                        $section = get_section($section_content);
                         $page = get_page($default_navbar, $section, $default_footer);
                         echo $page;
                         break;
@@ -93,15 +99,15 @@
                     // stdout($content);
                     $counter += 1;
                 };
-                return "<navbar id=\"menu-vertical\" class=\"grid-container w3-indigo\">$content</navbar>";
+
+                return "<navbar id=\"main-navbar\" class=\"grid-container w3-indigo\">$content</navbar>";
             }
 
-            function get_section($target) {
-                
+            function get_section($content) {
                 return "<section id=\"section\" class=\"grid-container\">$content</section>";
             }
 
-            function get_home_section() {
+            function get_home_navbar() {
                 $user_details = [
                     "name" => "Hubert",
                     "surname" => "Dabrowski",
@@ -109,23 +115,51 @@
                     "city" => "Lodz"
                 ];
                 $keys = array_keys($user_details);
-                $content = "<navbar id=\"info-navbar\" class=\"pseudo-navbar\">";
-
-                foreach(array_keys($map) as $key) {
+                $content = "<navbar id=\"info-navbar\" class=\"grid-container pseudo-navbar\">";
+                
+                foreach(array_keys($user_details) as $key) {
                     $value = $user_details[$key];
-                    $button = "<button type=\"button\" id=\"$key-button\" class=\"section_button\" value=\"$value\">";
+                    $button = "<button type=\"button\" id=\"$key-button\" class=\"section_button\" value=\"$value\"></button>";
                     $content .= $button;
+                    stdout($button);
                 };
                 
-                $content .= "/navbar>";
-                $user_info_navbar = "<div id=\"info-navbar\" class=\"pseudo-navbar\">$content</div>";
+                $content .= "</navbar>";
+                $user_info_navbar = "<div id=\"section-navbar\" class=\"pseudo-navbar\">$content</div>";
+                // stdout($content);
+                return $content;
+            }
+
+            function get_home_content($map) {
+                $keys = array_keys($user_details);
+                $content = "";
                 
-                return "<section id=\"section\" class=\"grid-container\">$content</section>";
+                foreach(array_keys($user_details) as $key) {
+                    $value = $user_details[$key];
+                    $button = "<button type=\"button\" id=\"$key-button\" class=\"section_button\" value=\"$value\"></button>";
+                    $content .= $button;
+                    stdout($button);
+                };
+                
+                $content .= "</navbar>";
+                $user_info_navbar = "<div id=\"section-navbar\" class=\"pseudo-navbar\">$content</div>";
+                // stdout($content);
+                return $content;
             }
 
             function get_footer() {
                 return "<footer id=\"footer\" class=\"grid-container w3-indigo\"><h3>Hubert Dąbrowski 2025</h3></footer>";
             }
+            
+            function get_home_page() {
+                $user_details = [
+                    "name" => "Hubert",
+                    "surname" => "Dabrowski",
+                    "country" => "Poland",
+                    "city" => "Lodz"
+                ];
+            }
+
 
             function get_page($navbar, $section, $footer) {
                 return sprintf("<div id=\"wrapper\" class=\"wrapper\">%s%s%s</div>", 
