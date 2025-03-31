@@ -93,7 +93,8 @@
                     $target = $route['url'];
                     $name = $route['name'];
                     $js_callback = "window.location.href='index.php?target=$name'";
-                    $content .= "<input type=\"button\" onclick=\"$js_callback\" id=\"nav-button-$counter\" class=\"nav-button w3-indigo w3-button\" value=\"$name\">";
+                    $name_upp = strtoupper($name);
+                    $content .= "<input type=\"button\" onclick=\"$js_callback\" id=\"nav-button-$counter\" class=\"nav-button w3-indigo w3-button\" value=\"$name_upp\">";
                     // stdout($content);
                     $counter += 1;
                 };
@@ -101,51 +102,60 @@
                 return "<navbar id=\"main-navbar\" class=\"grid-container w3-indigo\">$content</navbar>";
             }
 
-            // home            
-            function get_home_navbar() {
-                $user_details = [
-                    "name" => "Hubert",
-                    "surname" => "Dabrowski",
-                    "country" => "Poland",
-                    "city" => "Lodz"
-                ];
-                $keys = array_keys($user_details);
-                $content = "<navbar id=\"info-navbar\" class=\"grid-container pseudo-navbar\">";
+            // function get_home_section() {
+            //     $user_details = [
+            //         "name" => "Hubert",
+            //         "surname" => "Dabrowski",
+            //         "country" => "Poland",
+            //         "city" => "Lodz",
+            //         "index" => "162214"
+            //     ];
+
+            //     // $navbar = get_home_navbar();
+            //     // $section .= $navbar;
+            //     $table = "<table id=\"home-table\" class=\"section-table\">";
                 
-                foreach(array_keys($user_details) as $key) {
-                    $value = $user_details[$key];
-                    $button = "<button type=\"button\" id=\"$key-button\" class=\"section_button\" value=\"$value\"></button>";
-                    $content .= $button;
-                    stdout($button);
-                };
+            //     foreach(array_keys($user_details) as $key) {
+            //         $table_heading .= "<tr><th><b>$key</b></th></tr>";
+            //     }
                 
-                $content .= "</navbar>";
-                $user_info_navbar = "<div id=\"section-navbar\" class=\"pseudo-navbar\">$content</div>";
-                // stdout($content);
-                return $content;
-            }
+            //     $table .= $table_heading;
+
+            //     foreach(array_keys($user_details) as $key) {
+            //         $value = $user_details[$key];
+            //         $content .= "<tr>";
+            //         $content .= "<td>$value</td>";
+            //         $content .= "</tr>";
+            //         // stdout($content);
+            //     };
+            //     stdout($content);
+            //     $table .= "</table>"
+            //     $section .= "<section id=\"section\" class=\"block-container\">$content</section>";
+            //     stdout($section);
+            //     return $section;
+            // }
 
             function get_home_section() {
                 $user_details = [
                     "name" => "Hubert",
                     "surname" => "Dabrowski",
                     "country" => "Poland",
-                    "city" => "Lodz"
+                    "city" => "Lodz",
+                    "index" => "162214"
                 ];
 
-                $navbar = get_home_navbar();
-                $section .= $navbar;
                 $content = "";
                 $counter = 0;
                 foreach(array_keys($user_details) as $key) {
                     $value = $user_details[$key];
-                    $content .= "<div id=\"$key-block\" class=\"section-key-block\">$key</div>";
-                    $content .= "<div id=\"value-block-$counter\" class=\"section-value-block\">$value</div>";
+                    $key_upp = strtoupper($key);
+                    $content .= "<div id=\"key-block-$key\" class=\"home-body-key-block\"><b>$key_upp</b></div>";
+                    $content .= "<div id=\"value-block-$key\" class=\"home-body-value-block\">$value</div>";
                     $counter += 1;
                     // stdout($content);
                 };
                 stdout($content);
-                $section .= "<section id=\"section\" class=\"grid-container\">$content</section>";
+                $section .= "<section id=\"home-body\" class=\"grid-container body\">$content</section>";
                 stdout($section);
                 return $section;
             }
