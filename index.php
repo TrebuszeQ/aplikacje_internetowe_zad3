@@ -64,7 +64,7 @@
                         $name = $routes[1]['name'];
                         stdout("Routing to $name target");
                         $url = $routes[1]['url'];
-                        $section = get_home_section($url, $classes);
+                        $section = get_users_section($url, $classes);
                         $page = get_page($default_navbar, $section, $default_footer);
                         echo $page;
                         break;
@@ -73,7 +73,7 @@
                         $name = $routes[2]['name'];
                         stdout("Routing to $name target");
                         $url = $routes[2]['url'];
-                        $section = get_users_section($url, $classes);
+                        $section = get_home_section($url, $classes);
                         $page = get_page($default_navbar, $section, $default_footer);
                         echo $page;
                         break;
@@ -115,6 +115,20 @@
                         "country" => "Poland",
                         "city" => "Lodz",
                         "index" => "162214"
+                    ],
+                    [
+                        "name" => "Marcin",
+                        "surname" => "Bobrowski",
+                        "country" => "Poland",
+                        "city" => "Lodz",
+                        "index" => "131453"
+                    ],
+                    [
+                        "name" => "Wojciech",
+                        "surname" => "Frakowiak",
+                        "country" => "Poland",
+                        "city" => "Warszawa",
+                        "index" => "155762"
                     ]
                 ];
                 return $users;
@@ -144,17 +158,25 @@
                 $users = get_users();
                 $content = "";
                 $counter = 0;
-                
+                $header_done = false;
+
                 foreach($users as $user_details) {
-                
+                    stdout($user_details);
+
                     foreach(array_keys($user_details) as $key) {
-                        $value = $user_details[$key];
-                        $key_upp = strtoupper($key);
-                        $content .= "<div id=\"key-block-$key\" class=\"home-body-key-block\"><b>$key_upp</b></div>";
+                        if (!$header_done) {
+                            $value = $user_details[$key];
+                            $key_upp = strtoupper($key);
+                            $content .= "<div id=\"key-block-$key\" class=\"home-body-key-block\"><b>$key_upp</b></div>";
+                        }
                         $content .= "<div id=\"value-block-$key\" class=\"home-body-value-block\">$value</div>";
                         $counter += 1;
                         // stdout($content);
                     }
+                    
+                    if (!$header_done) {
+                        $header_done = true;
+                    }   
                 };
                 // stdout($content);
                 $section = get_section($name, $classes, $content);
