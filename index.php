@@ -137,15 +137,12 @@
             function get_home_section($name, $classes) {
                 $user_details = get_users()[0];
                 $content = "";
-                $counter = 0;
-                
                 
                 foreach(array_keys($user_details) as $key) {
                     $value = $user_details[$key];
                     $key_upp = strtoupper($key);
-                    $content .= "<div id=\"key-block-$key\" class=\"home-body-key-block\"><b>$key_upp</b></div>";
-                    $content .= "<div id=\"value-block-$key\" class=\"home-body-value-block\">$value</div>";
-                    $counter += 1;
+                    $content .= "<div id=\"key-block-$key\" class=\"home-body-key-block\" style=\"grid-row: 1\"><b>$key_upp</b></div>";
+                    $content .= "<div id=\"value-block-$key\" class=\"home-body-value-block\" style=\"grid-row: 2\"><p>$value</p></div>";
                     // stdout($content);
                 };
                 // stdout($content);
@@ -157,26 +154,28 @@
             function get_users_section($name, $classes) {
                 $users = get_users();
                 $content = "";
-                $counter = 0;
+
                 $header_done = false;
+                $counter = 0;
 
                 foreach($users as $user_details) {
                     stdout($user_details);
-
+                    $row = $counter + 2;
+                    
                     foreach(array_keys($user_details) as $key) {
                         if (!$header_done) {
-                            $value = $user_details[$key];
                             $key_upp = strtoupper($key);
-                            $content .= "<div id=\"key-block-$key\" class=\"home-body-key-block\"><b>$key_upp</b></div>";
+                            $content .= "<div id=\"key-block-$key\" class=\"home-body-key-block\" style=\"grid-row: 1\"><b>$key_upp</b></div>";
                         }
-                        $content .= "<div id=\"value-block-$key\" class=\"home-body-value-block\">$value</div>";
-                        $counter += 1;
+                        $value = $user_details[$key];
+                        $content .= "<div id=\"value-block-$key-$counter\" class=\"home-body-value-block\" style=\"grid-row: $row\"><p>$value</p></div>";
                         // stdout($content);
                     }
                     
                     if (!$header_done) {
                         $header_done = true;
-                    }   
+                    }
+                    $counter += 1;
                 };
                 // stdout($content);
                 $section = get_section($name, $classes, $content);

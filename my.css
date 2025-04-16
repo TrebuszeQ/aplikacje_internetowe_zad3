@@ -27,11 +27,11 @@
 }
 
 .home-body-key-block {
-    grid-row: 1;
+
 }
 
 .home-body-value-block {
-    grid-row: 2;
+
 }
 
 .section-button {
@@ -56,14 +56,15 @@
 
 #main-navbar {
     grid-row: 1;
-    grid-template-columns: repeat(4, 25vw);
+    grid-template-columns: repeat(4, 1fr);
     grid-template-rows: 100%;
 }
 
 
 #home-body, #users-body {
-    grid-template-columns: repeat(5, 20%);
-    grid-template-rows: 10% 10%;
+    grid-template-columns: auto;
+    grid-template-rows: repeat(3, max-content);
+    gap: 5%;
     text-align: center;
 }
 
