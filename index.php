@@ -64,7 +64,7 @@
                         $name = $routes[1]['name'];
                         stdout("Routing to $name target");
                         $url = $routes[1]['url'];
-                        $section = get_users_section($url, $classes);
+                        $section = get_users_data_section($url, $classes);
                         $page = get_page($default_navbar, $section, $default_footer);
                         echo $page;
                         break;
@@ -73,7 +73,7 @@
                         $name = $routes[2]['name'];
                         stdout("Routing to $name target");
                         $url = $routes[2]['url'];
-                        $section = get_home_section($url, $classes);
+                        $section = get_gallery_section($url, $classes);
                         $page = get_page($default_navbar, $section, $default_footer);
                         echo $page;
                         break;
@@ -107,7 +107,7 @@
                 return "<navbar id=\"main-navbar\" class=\"grid-container w3-indigo\">$content</navbar>";
             }
 
-            function get_users() {
+            function get_users_data() {
                 $users = [
                     [
                         "name" => "Hubert",
@@ -134,8 +134,34 @@
                 return $users;
             }
 
+            function get_galleries_data() {
+                $galleries = [
+                    [
+                        "name" => "gallery_1",
+                        "description" => "Gallery 1",
+                        "images" => [
+                            [
+                                "name" => "img_1",
+                                "description" => "Image 1",
+                                "path" => "./images/img_1.png"
+                            ]
+                        ],
+                        "height" => "10%",
+                        "width" => "20%"
+                    ],
+                    [
+                        "name" => "gallery_2",
+                        "description" => "Gallery 2",
+                        "images" => [
+                        ]
+                    ]
+                ];
+                // stdout("$galleries");
+                return $galleries;
+            }
+
             function get_home_section($name, $classes) {
-                $user_details = get_users()[0];
+                $user_details = get_users_data()[0];
                 $content = "";
                 
                 foreach(array_keys($user_details) as $key) {
@@ -151,15 +177,15 @@
                 return $section;
             }
             
-            function get_users_section($name, $classes) {
-                $users = get_users();
+            function get_users_data_section($name, $classes) {
+                $users = get_users_data();
                 $content = "";
 
                 $header_done = false;
                 $counter = 0;
 
                 foreach($users as $user_details) {
-                    stdout($user_details);
+                    // stdout($user_details);
                     $row = $counter + 2;
                     
                     foreach(array_keys($user_details) as $key) {
@@ -180,6 +206,41 @@
                 // stdout($content);
                 $section = get_section($name, $classes, $content);
                 // stdout($section);
+                return $section;
+            }
+
+            function get_gallery_section($name, $classes) {
+                $classes_str = join(" ", $classes);
+                $galleries_data = get_galleries_data();
+                $content = "";
+
+                foreach($galleries_data as $gallery) {
+                    // stdout($gallery);
+                    $name = $gallery["name"];
+                    $description = $gallery["description"];
+                    $images = $gallery["images"];
+                    $height = $gallery["height"];
+                    $width = $gallery["width"];
+                    stdout($images);
+                    stdout(array_keys($images));
+                    $gallery_block = "<div id=\"$name-wrapper\" class=\"\">";
+                    
+                    foreach($images as $img) {
+                        $img_name = $img["name"];
+                        stdout($img_name);
+                        $img_description = $img["description"];
+                        $img_path = $img["path"];
+                        stdout($img_path);
+                        $img_block = "<img src=\"$img_path\" alt=\"$img_description\" width=\"$width\" height=\"$height\"";
+                        $gallery_block .= $img_block;
+                    }
+                    
+                    $gallery_block .= "</div>";
+                    stdout($gallery_block);
+                    $content .= $gallery_block;
+                }
+
+                $section = get_section($name, $classes, $content);
                 return $section;
             }
 
