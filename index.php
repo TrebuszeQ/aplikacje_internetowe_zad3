@@ -2,6 +2,7 @@
 <html>
     <title>Zadanie3</title>
     <head>
+        <script src="./script.js"></script>
         <meta name="description" content="">
         <meta name="keywords" content="HTML, CSS, PHP">
         <meta name="author" content="Hubert Dabrowski">
@@ -12,12 +13,8 @@
     </head>
     <body>
         <?php
-            if (isset($_GET['target'])) {
-                $url = $_GET['target'];
-            }
-            else {
-                $url = "";
-            }
+            $url = $_GET["target"];
+            stdout($url);
 
             function stdout($data) {
                 $output = json_encode($data);
@@ -212,10 +209,11 @@
                 $gallery_wrapper_element = "<div id=\"$name-wrapper\" class=\"\">";
                     $gallery_wrapper_element .= $l_nav_button_block;
             }  
-
-            function carousel_move($carousel_element_id, $move_by) {
-                echo "
-                "
+            
+            function register_carousel($carousel_element_id) {
+                echo "<script> 
+                    register_carousel('$carousel_element_id');
+                </script>";
             }
 
             function get_gallery_section($name, $classes) {
@@ -231,12 +229,13 @@
                 $width = $gallery["width"];
                 // stdout($images);
                 $content = "<h2 id=\"$name-title\" class=\"gallery-title\">$gallery_name</h2>";;
-                $img_wrapprt_id = "$gallery_name-wrapper";
-                $scroll_button_callback = carousel_move;
-                $gallery_wrapper_element = "<div id=\"$img_wrapprt_id\" class=\"gallery-wrapper grid-container\">";
-                $l_nav_button_block = "<button id=\"left-$gallery_name-button\" class=\"left-gallery-button gallery-button nav-button w3-indigo w3-button\" type=\"button\"><</button>";
+                $img_wrapper_id = "$gallery_name-img-wrapper";
+                
+                $gallery_wrapper_element = "<div id=\"$gallery_name-wrapper\" class=\"gallery-wrapper grid-container\">";
+                $js_callback = "carousel_move";
+                $l_nav_button_block = "<input type=\"button\" onclick=\"{$js_callback}('$img_wrapper_id', -100)\" id=\"left-$gallery_name-button\" class=\"left-gallery-button gallery-button nav-button w3-indigo w3-button\" value=\"<\">";
                 $gallery_wrapper_element .= $l_nav_button_block;
-                $img_wrapper_element = "<div id=\"$gallery_name-img-wrapper\" class=\"gallery-img-wrapper grid-container\">";
+                $img_wrapper_element = "<div id=\"$img_wrapper_id\" class=\"gallery-img-wrapper grid-container\">";
 
                 foreach($images as $img) {
                     // $img_name = $img["name"];
@@ -249,7 +248,8 @@
                 }
 
                 $img_wrapper_element .= "</div>";
-                $r_nav_button_block = "<button id=\"right-$gallery_name-button\" class=\"right-gallery-button gallery-button nav-button w3-indigo w3-button\" type=\"button\">></button>";
+                $js_callback = "carousel_move";
+                $r_nav_button_block = "<input type=\"button\" onclick=\"{$js_callback}('$img_wrapper_id', 100)\" id=\"left-$gallery_name-button\" class=\"right-gallery-button gallery-button nav-button w3-indigo w3-button\" value=\">\">"; 
                 $gallery_wrapper_element .= $img_wrapper_element;
                 $gallery_wrapper_element .= $r_nav_button_block;
                 $gallery_wrapper_element .= "</div>";
@@ -258,7 +258,7 @@
                 $gallery_description_block = "<div id=\"$gallery_name-description-block\" class=\"gallery-description-block block-container\">$gallery_description_block_content</div>";
                 $content .= $gallery_description_block;
                 $content .= $gallery_wrapper_element;
-
+                
                 $section = get_section($name, $classes, $content);
                 return $section;
             }
