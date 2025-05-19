@@ -134,26 +134,25 @@
                 return $users;
             }
 
-            function get_galleries_data() {
+            function get_gallery_data() {
                 $galleries = [
                     [
-                        "name" => "gallery_1",
-                        "description" => "Gallery 1",
+                        "name" => "test-gallery",
+                        "description" => "Test gallery",
                         "images" => [
                             [
                                 "name" => "img_1",
                                 "description" => "Image 1",
                                 "path" => "./images/img_1.png"
+                            ],
+                            [
+                                "name" => "img_2",
+                                "description" => "Image 2",
+                                "path" => "./images/img_2.png"
                             ]
                         ],
-                        "height" => "10%",
-                        "width" => "20%"
-                    ],
-                    [
-                        "name" => "gallery_2",
-                        "description" => "Gallery 2",
-                        "images" => [
-                        ]
+                        "height" => "100%",
+                        "width" => "100%"
                     ]
                 ];
                 // stdout("$galleries");
@@ -209,36 +208,56 @@
                 return $section;
             }
 
+            function get_carousel() {
+                $gallery_wrapper_element = "<div id=\"$name-wrapper\" class=\"\">";
+                    $gallery_wrapper_element .= $l_nav_button_block;
+            }  
+
+            function carousel_move($carousel_element_id, $move_by) {
+                echo "
+                "
+            }
+
             function get_gallery_section($name, $classes) {
                 $classes_str = join(" ", $classes);
-                $galleries_data = get_galleries_data();
-                $content = "";
+                $galleries_data = get_gallery_data();
 
-                foreach($galleries_data as $gallery) {
-                    // stdout($gallery);
-                    $name = $gallery["name"];
-                    $description = $gallery["description"];
-                    $images = $gallery["images"];
-                    $height = $gallery["height"];
-                    $width = $gallery["width"];
-                    stdout($images);
-                    stdout(array_keys($images));
-                    $gallery_block = "<div id=\"$name-wrapper\" class=\"\">";
-                    
-                    foreach($images as $img) {
-                        $img_name = $img["name"];
-                        stdout($img_name);
-                        $img_description = $img["description"];
-                        $img_path = $img["path"];
-                        stdout($img_path);
-                        $img_block = "<img src=\"$img_path\" alt=\"$img_description\" width=\"$width\" height=\"$height\"";
-                        $gallery_block .= $img_block;
-                    }
-                    
-                    $gallery_block .= "</div>";
-                    stdout($gallery_block);
-                    $content .= $gallery_block;
+                $gallery = $galleries_data[0];
+                // stdout($gallery);
+                $gallery_name = $gallery["name"];
+                $description = $gallery["description"];
+                $images = $gallery["images"];
+                $height = $gallery["height"];
+                $width = $gallery["width"];
+                // stdout($images);
+                $content = "<h2 id=\"$name-title\" class=\"gallery-title\">$gallery_name</h2>";;
+                $img_wrapprt_id = "$gallery_name-wrapper";
+                $scroll_button_callback = carousel_move;
+                $gallery_wrapper_element = "<div id=\"$img_wrapprt_id\" class=\"gallery-wrapper grid-container\">";
+                $l_nav_button_block = "<button id=\"left-$gallery_name-button\" class=\"left-gallery-button gallery-button nav-button w3-indigo w3-button\" type=\"button\"><</button>";
+                $gallery_wrapper_element .= $l_nav_button_block;
+                $img_wrapper_element = "<div id=\"$gallery_name-img-wrapper\" class=\"gallery-img-wrapper grid-container\">";
+
+                foreach($images as $img) {
+                    // $img_name = $img["name"];
+                    stdout($img_name);
+                    $img_description = $img["description"];
+                    $img_path = $img["path"];
+                    // stdout($img_path);
+                    $img_element = "<img id=\"$img_name\" class=\"gallery-img\" src=\"$img_path\" alt=\"$img_description\" width=\"$width\" height=\"$height\" loading=\"lazy\">";
+                    $img_wrapper_element .= $img_element;
                 }
+
+                $img_wrapper_element .= "</div>";
+                $r_nav_button_block = "<button id=\"right-$gallery_name-button\" class=\"right-gallery-button gallery-button nav-button w3-indigo w3-button\" type=\"button\">></button>";
+                $gallery_wrapper_element .= $img_wrapper_element;
+                $gallery_wrapper_element .= $r_nav_button_block;
+                $gallery_wrapper_element .= "</div>";
+                $gallery_description_block_content = "<h3 id=\"$gallery_name-description-title\" class=\"gallery-description-title\">Description</h3>";
+                $gallery_description_block_content.= "<p id=\"$gallery_name-description\" class=\"gallery-description\">$description</p>";
+                $gallery_description_block = "<div id=\"$gallery_name-description-block\" class=\"gallery-description-block block-container\">$gallery_description_block_content</div>";
+                $content .= $gallery_description_block;
+                $content .= $gallery_wrapper_element;
 
                 $section = get_section($name, $classes, $content);
                 return $section;
