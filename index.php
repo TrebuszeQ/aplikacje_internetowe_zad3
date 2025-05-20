@@ -210,9 +210,9 @@
                     $gallery_wrapper_element .= $l_nav_button_block;
             }  
             
-            function register_carousel($carousel_element_id) {
-                echo "<script> 
-                    register_carousel('$carousel_element_id');
+            function register_carousel_data($length, $unit) {
+                echo "<script>
+                    register_carousel_data($length, $unit)
                 </script>";
             }
 
@@ -230,10 +230,11 @@
                 // stdout($images);
                 $content = "<h2 id=\"$name-title\" class=\"gallery-title\">$gallery_name</h2>";;
                 $img_wrapper_id = "$gallery_name-img-wrapper";
+                $carousel_unit = 86;
                 
                 $gallery_wrapper_element = "<div id=\"$gallery_name-wrapper\" class=\"gallery-wrapper grid-container\">";
                 $js_callback = "carousel_move";
-                $l_nav_button_block = "<input type=\"button\" onclick=\"{$js_callback}('$img_wrapper_id', -100)\" id=\"left-$gallery_name-button\" class=\"left-gallery-button gallery-button nav-button w3-indigo w3-button\" value=\"<\">";
+                $l_nav_button_block = "<input type=\"button\" onclick=\"{$js_callback}('$img_wrapper_id', '-$carousel_unit')\" id=\"left-$gallery_name-button\" class=\"left-gallery-button gallery-button nav-button w3-indigo w3-button\" value=\"<\">";
                 $gallery_wrapper_element .= $l_nav_button_block;
                 $img_wrapper_element = "<div id=\"$img_wrapper_id\" class=\"gallery-img-wrapper grid-container\">";
 
@@ -249,7 +250,7 @@
 
                 $img_wrapper_element .= "</div>";
                 $js_callback = "carousel_move";
-                $r_nav_button_block = "<input type=\"button\" onclick=\"{$js_callback}('$img_wrapper_id', 100)\" id=\"left-$gallery_name-button\" class=\"right-gallery-button gallery-button nav-button w3-indigo w3-button\" value=\">\">"; 
+                $r_nav_button_block = "<input type=\"button\" onclick=\"{$js_callback}('$img_wrapper_id', '$carousel_unit')\" id=\"left-$gallery_name-button\" class=\"right-gallery-button gallery-button nav-button w3-indigo w3-button\" value=\">\">"; 
                 $gallery_wrapper_element .= $img_wrapper_element;
                 $gallery_wrapper_element .= $r_nav_button_block;
                 $gallery_wrapper_element .= "</div>";
@@ -260,6 +261,7 @@
                 $content .= $gallery_wrapper_element;
                 
                 $section = get_section($name, $classes, $content);
+                register_carousel_data(count($images), $carousel_unit);
                 return $section;
             }
 

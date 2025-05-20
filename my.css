@@ -21,7 +21,7 @@
 }
 
 .body {
-    padding: 2% 2% 2% 2%;
+    padding: 2vw 2vw 2vw 2vw;
     box-sizing: border-box;
     grid-row: 2;
 }
@@ -35,23 +35,29 @@
 }
 
 .gallery-wrapper {
-    grid-template-columns: 5% 90% 5%;
-    grid-template-rows: 100%;
-    padding: 2%;
+    grid-template-columns: 5vw 86vw 5vw;
+    grid-template-rows: 48vw;
+    height: 48vw;
+    /* padding: 2%; */
     overflow: hidden;
     box-sizing: inherit;
 }
 
 .gallery-title {
     grid-row: 1;
+    position: relative;
+    width: 100%;
 }
 
 .gallery-description-block {
     grid-row: 3;
+    box-sizing: content-box;
+    width: 100%;
+    height: 100%;
 }
 
 .gallery-button {
-    position: absolute;
+    width: 5vw;
     height: 100%;
     z-index: 100;
 }
@@ -62,7 +68,7 @@
     float: left;
 }
 
-.right-gallery-button {
+.right-ZZZ -button {
     grid-column: 3;
     grid-row: 1;
     float: right;
@@ -73,13 +79,11 @@
     grid-row: 1;
     grid-template-columns: 100% 100%;
     grid-template-rows: 100%;
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 .gallery-img {
-    width: 100%;
+    width: 86vw;
     height: 100%;
     aspect-ratio: 16 / 9;
 }
@@ -103,11 +107,11 @@
 
 #wrapper {
     position: absolute;
-    display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: 10vw 80vw 10vw;
-    width: 100%;
-    height: auto;
+    /* display: grid; */
+    /* grid-template-columns: 100vw;
+    grid-template-rows: 5vw 85vw 10vw; */
+    width: 100vw;
+    height: 100%;
     border-bottom: 2px solid #e3dfdf;
     box-sizing: border-box;
 }
@@ -115,7 +119,7 @@
 #main-navbar {
     grid-row: 1;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: 100%;
+    grid-template-rows: 5vw;
 }
 
 
@@ -127,12 +131,12 @@
 }
 
 #gallery-body {
-    grid-template-rows: 10% 65% 25%;
-    grid-template-columns: 100%;
+    grid-template-rows: 10vw 65vw 25vw;
+    grid-template-columns: 96vw;
+    overflow: hidden;
 }
 
 #footer {
-    padding: 2%;
-    width: 100%;
-    height: 100%;
+    padding: 2vw;
+    width: 100vw;
 }
