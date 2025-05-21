@@ -7,7 +7,7 @@
         <meta name="keywords" content="HTML, CSS, PHP">
         <meta name="author" content="Hubert Dabrowski">
         <meta charset="utf-8">
-        <meta name="viewport" context="width=device-width, initial-scale=1">
+        <meta name="viewport" context="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="./w3.css">
         <link rel="stylesheet" href="./my.css">
     </head>
@@ -275,7 +275,7 @@
             }
 
             function get_page($navbar, $section, $footer) {
-                return sprintf("<div id=\"wrapper\" class=\"wrapper\">%s%s%s</div>", 
+                return sprintf("<div id=\"wrapper\" class=\"wrapper grid-container\">%s%s%s</div>", 
                     $navbar,
                     $section,
                     $footer
